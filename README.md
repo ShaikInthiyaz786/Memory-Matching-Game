@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# Memory Matching Game
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A simple memory matching game built with React.js. Players flip tiles to find matching pairs, with the goal of matching all pairs in the shortest time possible. The game tracks the player's score and time, and displays the results at the end.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User can enter their name to personalize the game.
+- Randomly shuffled tiles for each new game.
+- Real-time score and time tracking.
+- End game screen displaying final score and time.
+- Responsive design.
 
-### `npm start`
+## Getting Started
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js (v12 or later)
+- npm (v6 or later) or yarn
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository:
+    ```sh
+    git clone https://github.com/your-username/memory-matching-game.git
+    cd memory-matching-game
+    ```
 
-### `npm run build`
+2. Install dependencies:
+    ```sh
+    npm install
+    ```
+    or
+    ```sh
+    yarn install
+    ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Running the Game
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. Start the development server:
+    ```sh
+    npm start
+    ```
+    or
+    ```sh
+    yarn start
+    ```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+2. Open your browser and go to `http://localhost:3000` to play the game.
 
-### `npm run eject`
+## Project Structure
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+- `src`
+  - `components`
+    - `WelcomeScreen.js`: Component for capturing the user's name and starting the game.
+    - `GameBoard.js`: Main component for the game logic, displaying tiles, tracking score, and time.
+    - `Tile.js`: Represents each individual tile in the game.
+    - `SuccessScreen.js`: Component to display the final score and time when the game ends.
+  - `App.js`: Manages the overall state of the application, switching between welcome screen, game board, and success screen.
+  - `index.js`: Entry point for the React application.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Game Logic
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### `WelcomeScreen.js`
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- Captures the user's name and stores it in `localStorage`.
+- Calls the `onStartGame` function to transition to the game screen.
 
-## Learn More
+### `GameBoard.js`
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Initializes the game state, including tiles, flipped tiles, matched tiles, score, and time.
+- Uses `useEffect` to handle the timer, incrementing the time state every second.
+- Another `useEffect` checks if all tiles are matched and calls `onGameEnd` when the game is finished.
+- `handleTileClick` function manages the tile flipping logic and matching pairs.
+- `formatTime` function converts the time in seconds to a `MM:SS` format.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### `Tile.js`
 
-### Code Splitting
+- Represents a single tile in the game.
+- Displays the tile's image if it is flipped.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### `App.js`
 
-### Analyzing the Bundle Size
+- Manages the overall state of the application: welcome screen, game board, and success screen.
+- Handles state transitions based on user actions and game state.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+## Customization
 
-### Making a Progressive Web App
+- You can customize the tile images by replacing the images in the `generateTiles` function in `GameBoard.js`.
+- Adjust the game board layout by modifying the CSS in `App.css`.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## Contributing
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+1. Fork the repository.
+2. Create your feature branch (`git checkout -b feature/YourFeature`).
+3. Commit your changes (`git commit -m 'Add some feature'`).
+4. Push to the branch (`git push origin feature/YourFeature`).
+5. Open a pull request.

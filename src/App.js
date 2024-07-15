@@ -1,25 +1,44 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import WelcomeScreen from './components/WelcomeScreen';
+import GameBoard from './components/GameBoard';
+import SuccessScreen from './components/SuccessScreen';
 
-function App() {
+import "./App.css"
+
+const App = () => {
+  const [gameState, setGameState] = useState('welcome'); // 'welcome', 'playing', 'success'
+  const [finalScore, setFinalScore] = useState(0);
+  const [finalTime, setFinalTime] = useState(0);
+
+  const handleStartGame = () => {
+    setGameState('playing');
+  };
+
+  const handleGameEnd = (score, time) => {
+    setFinalScore(score);
+    setFinalTime(time);
+    setGameState('success');
+  };
+
+  const formatTime = (time) => {
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? '0' : ''}${seconds}`;
+  };
+
+  const handleRestart = () => {
+    setGameState('welcome');
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {gameState === 'welcome' && <WelcomeScreen onStartGame={handleStartGame} />}
+      {gameState === 'playing' && <GameBoard onGameEnd={handleGameEnd} />}
+      {gameState === 'success' && (
+        <SuccessScreen score={finalScore} time={formatTime(finalTime)} onRestart={handleRestart} />
+      )}
     </div>
   );
-}
+};
 
 export default App;
